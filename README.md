@@ -1,2 +1,2 @@
 # brycewood.dev
-code for my main website (<a href="brycewood.dev">brycewood.dev</a>)
+code for my main website (<a href="https://www.brycewood.dev/">brycewood.dev</a>)
