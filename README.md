@@ -1,1 +1,1 @@
-<a href="https://theygopoof.github.io/website/">website</a>
+<a href="https://theygopoof.github.io/website/">Website</a>
