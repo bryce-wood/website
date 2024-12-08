@@ -1,0 +1,52 @@
+@font-face {
+    font-family: "DejaVu Sans Mono";
+    src: url(assets/DejaVu\ Sans\ Mono/DejaVuSansMono.ttf);
+
+}
+
+:root {
+    font-size: 32px;
+    font-family: "DejaVu Sans Mono", monospace;
+    --text-primary: #ffffff;
+    --bg-primary: #136b78;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: var(--bg-primary);
+}
+
+p {
+    padding: 1rem;
+    border: 0;
+    margin: 0;
+    color: var(--text-primary);
+    
+}
+
+a {
+    text-decoration: none;
+}
+
+.center {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body::-webkit-scrollbar {
+    background-color: black;
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: var(--bg-primary);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: black;
+}
