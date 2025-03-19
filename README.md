@@ -1,1 +1,1 @@
-https://brycewood.dev/
+https://brycewood.dev/hello
