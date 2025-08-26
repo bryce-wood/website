@@ -1,0 +1,35 @@
+@font-face {
+    font-family: "DejaVu Sans Mono";
+    src: url(fonts/DejaVu\ Sans\ Mono/DejaVuSansMono.ttf);
+
+}
+
+:root {
+    font-size: 24px;
+    font-family: "DejaVu Sans Mono", monospace;
+    background-color: hsl(188, 73%, 17%); /* #136b78 is hsl(188, 73%, 27%) */
+}
+
+body {
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    text-align: center;
+    text-shadow: 4px 4px 2px black;
+}
+
+ul {
+    line-height: 2;
+}
+
+a {
+    color: white;
+}
+
+div.main {
+    width: 80%;
+    align-self: center;
+}
