@@ -1,0 +1,34 @@
+@font-face {
+    font-family: "DejaVu Sans Mono";
+    src: url(fonts/DejaVu\ Sans\ Mono/DejaVuSansMono.ttf);
+
+}
+
+body {
+    font-size: 32px;
+    font-family: "DejaVu Sans Mono", monospace;
+    color: #ffffff;
+    background-color: #136b78;
+    margin: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+div#graphs-container {
+    background-color: black;
+    display: flex;
+    flex-wrap: wrap;
+    width: 95vw;
+    height: fit-content;
+    padding: 0 2.5vw 2.5vw 2.5vw; /* handles spacing on all sides of the graphs except the top */
+    justify-content: space-around;
+}
+
+div.graph {
+    background-color: white;
+    aspect-ratio: 1 / 1;
+    width: 30%;
+    margin: 2.5vw 0 0 0; /* handles the top spacing on the graphs, seperate so that there is vertical spacing in flex */
+}
