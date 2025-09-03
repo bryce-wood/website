@@ -29,6 +29,20 @@ div#graphs-container {
 div.graph {
     background-color: white;
     aspect-ratio: 1 / 1;
-    width: 30%;
+    width: 30%; /* default is 3 graphs per row */
     margin: 2.5vw 0 0 0; /* handles the top spacing on the graphs, seperate so that there is vertical spacing in flex */
+}
+
+/* mid-small screens will have 2 graphs per row */
+@media (max-width: 1200px) {
+    div.graph {
+        width: 45%;
+    }
+}
+
+/* small screens will have 1 graph per row */
+@media (max-width: 600px) {
+    div.graph {
+        width: 90%;
+    }
 }
