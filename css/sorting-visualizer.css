@@ -10,6 +10,9 @@ body {
     color: #ffffff;
     background-color: #136b78;
     margin: 0;
+    --bar-color: darkslategray;
+    --sorted-color: limegreen;
+    --selected-color: orange;
 }
 
 h1 {
@@ -17,7 +20,6 @@ h1 {
 }
 
 div#graphs-container {
-    background-color: black;
     display: flex;
     flex-wrap: wrap;
     width: 95vw;
@@ -37,15 +39,15 @@ div.graph {
 
 div.bar {
     margin-top: auto;
-    background-color: darkslategray;
+    background-color: var(--bar-color);
 }
 
 div.bar.sorted {
-    background-color: limegreen;
+    background-color: var(--sorted-color);
 }
 
 div.bar.selected {
-    background-color: orange;
+    background-color: var(--selected-color);
 }
 
 /* mid-small screens will have 2 graphs per row */

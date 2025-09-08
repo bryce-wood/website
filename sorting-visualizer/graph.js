@@ -1,4 +1,4 @@
-var length = 5; // how many elements are in the array (how many bars in the graph)
+var length = 10; // how many elements are in the array (how many bars in the graph)
 var array; // the array to be sorted
 var graph = document.getElementById("template-graph");
 
