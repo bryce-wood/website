@@ -1,16 +1,5 @@
-@font-face {
-    font-family: "DejaVu Sans Mono";
-    src: url(fonts/DejaVu\ Sans\ Mono/DejaVuSansMono.ttf);
-
-}
-
-:root {
-    font-size: 24px;
-    font-family: "DejaVu Sans Mono", monospace;
-    background-color: hsl(188, 73%, 17%); /* #136b78 is hsl(188, 73%, 27%) */
-}
-
 body {
+    background-color: var(--bg-dark);
     color: white;
     display: flex;
     flex-direction: column;

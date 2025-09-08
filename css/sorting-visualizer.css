@@ -5,7 +5,7 @@
 }
 
 body {
-    font-size: 32px;
+    font-size: 2em;
     font-family: "DejaVu Sans Mono", monospace;
     color: #ffffff;
     background-color: #136b78;
@@ -27,10 +27,25 @@ div#graphs-container {
 }
 
 div.graph {
-    background-color: white;
+    display: flex;
+    flex-direction: row;
+    background-color: gray;
     aspect-ratio: 1 / 1;
     width: 30%; /* default is 3 graphs per row */
     margin: 2.5vw 0 0 0; /* handles the top spacing on the graphs, seperate so that there is vertical spacing in flex */
+}
+
+div.bar {
+    margin-top: auto;
+    background-color: darkslategray;
+}
+
+div.bar.sorted {
+    background-color: limegreen;
+}
+
+div.bar.selected {
+    background-color: orange;
 }
 
 /* mid-small screens will have 2 graphs per row */

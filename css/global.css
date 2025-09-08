@@ -1,0 +1,13 @@
+@font-face {
+    font-family: "DejaVu Sans Mono";
+    src: url(fonts/DejaVu\ Sans\ Mono/DejaVuSansMono.ttf);
+
+}
+
+:root {
+    font-size: 1.5rem;
+    font-family: "DejaVu Sans Mono", monospace;
+    --text-primary: #ffffff;
+    --bg-primary: hsl(188, 73%, 27%); /* #136b78 */
+    --bg-dark: hsl(188, 73%, 17%);
+}
