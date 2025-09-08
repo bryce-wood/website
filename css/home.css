@@ -1,6 +1,6 @@
 body {
     background-color: var(--bg-dark);
-    color: white;
+    color: var(--text-primary);
     display: flex;
     flex-direction: column;
 }
