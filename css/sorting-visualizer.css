@@ -19,7 +19,7 @@ h1 {
     text-align: center;
 }
 
-div#graphs-container {
+div#graphs {
     display: flex;
     flex-wrap: wrap;
     width: 95vw;
@@ -28,13 +28,40 @@ div#graphs-container {
     justify-content: space-around;
 }
 
+div.graph-container {
+    background-color: var(--bg-dark);
+    width: 29%; /* default is 3 graphs per row */
+    margin-top: 1.5vw; /* handles the top spacing on the graphs, seperate so that there is vertical spacing in flex */
+    padding: 1.5vw;
+    border-radius: 1vw;
+}
+
+p.graph-title {
+    text-align: center;
+    font-size: 0.5em;
+    margin: 0;
+}
+
+div.controls {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1.5vw;
+}
+
+div.controls > input[type="range"] {
+    width: 60%;
+}
+
+div.controls > button {
+    width: 15%;
+}
+
 div.graph {
     display: flex;
     flex-direction: row;
     background-color: gray;
     aspect-ratio: 1 / 1;
-    width: 30%; /* default is 3 graphs per row */
-    margin: 2.5vw 0 0 0; /* handles the top spacing on the graphs, seperate so that there is vertical spacing in flex */
+    width: 100%;
 }
 
 div.bar {
@@ -52,14 +79,14 @@ div.bar.selected {
 
 /* mid-small screens will have 2 graphs per row */
 @media (max-width: 1200px) {
-    div.graph {
+    div.graph-container {
         width: 45%;
     }
 }
 
 /* small screens will have 1 graph per row */
 @media (max-width: 600px) {
-    div.graph {
+    div.graph-container {
         width: 90%;
     }
 }
