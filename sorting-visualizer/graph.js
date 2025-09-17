@@ -99,8 +99,21 @@ function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+async function done(graph) {
+    let bars = graph.children;
+    let speed = 500 / bars.length;
+    for (let i = 0; i < bars.length; i++) {
+        bars[i].style.backgroundColor = "var(--bar-color)";
+    }
+    for (let i = 0; i < bars.length; i++) {
+        bars[i].style.backgroundColor = "var(--sorted-color)";
+        await delay(speed);
+    }
+}
+
 // https://en.wikipedia.org/wiki/Bubble_sort
 async function bubbleSort(graph) {
+    stop = false;
     let A = graph.children;
     let n = A.length;
     let speed = 2000 / n; // speed is faster for larger arrays
@@ -135,6 +148,42 @@ async function bubbleSort(graph) {
         }
         n = newn;
     }
+    done(graph);
+}
+
+// https://www.geeksforgeeks.org/dsa/selection-sort-algorithm-2/
+async function selectionSort(graph) {
+    stop = false;
+    let arr = graph.children;
+    let n = arr.length;
+    let speed = 2000 / n;
+    for (let i = 0; i < n - 1; i++) {
+        let min_idx = i;
+        arr[min_idx].style.backgroundColor = "var(--selected-color)";
+        for (let j = i + 1; j < n; j++) {
+            arr[j].style.backgroundColor = "var(--selected-color)";
+            await delay(speed);
+            if (stop) {
+                stop = false;
+                return;
+            }
+            arr[j].style.backgroundColor = "var(--bar-color)";
+            if (parseFloat(arr[j].style.height) < parseFloat(arr[min_idx].style.height)) {
+                arr[min_idx].style.backgroundColor = "var(--bar-color)";
+                min_idx = j;
+                arr[min_idx].style.backgroundColor = "var(--selected-color)";
+            }
+        }
+        swap(arr, i, min_idx);
+        arr[i].style.backgroundColor = "var(--sorted-color)";
+        arr[min_idx].style.backgroundColor = "var(--bar-color)";
+        await delay(speed);
+        if (stop) {
+            stop = false;
+            return;
+        }
+    }
+    done(graph);
 }
 
 function main() {
