@@ -63,7 +63,7 @@ function generatGraphsHTML() {
         }
 
         elementSlider.type = "range";
-        elementSlider.min = 3;
+        elementSlider.min = 5;
         elementSlider.max = 100;
         elementSlider.step = 1;
         elementSlider.value = 10;
