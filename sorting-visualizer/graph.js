@@ -2,14 +2,14 @@ const GRAPH_TYPES = [
     "bubble",
     "selection",
     "insertion",
-    "quick",
     "merge",
+    "quick",
     "heap",
 ]
 
 var stop = false;
 
-function initArray(length=10) {
+function initArray(length=16) {
     let arr = [];
     for (let i = 0; i < length; i++) {
         //arr.push(Math.floor(Math.random() * length) + 1);
@@ -23,7 +23,7 @@ function initArray(length=10) {
     return arr;
 }
 
-function drawGraph(graph, length=10) {
+function drawGraph(graph, length=16) {
     let array = initArray(length);
     graph.replaceChildren(); // clear the graph
     for (bar of array) {
@@ -66,7 +66,7 @@ function generatGraphsHTML() {
         elementSlider.min = 5;
         elementSlider.max = 100;
         elementSlider.step = 1;
-        elementSlider.value = 10;
+        elementSlider.value = 16;
         elementSlider.oninput = (e) => {
             stop = true; // stop the current sorting
             let length = e.target.value;
@@ -184,6 +184,112 @@ async function selectionSort(graph) {
         }
     }
     done(graph);
+}
+
+
+// https://en.wikipedia.org/wiki/Insertion_sort 
+async function insertionSort(graph) {
+    stop = false;
+    let A = graph.children;
+    let n = A.length;
+    let speed = 2000 / n;
+    let i = 1;
+    while (i < n) {
+        let j = i;
+        while(j > 0 && parseFloat(A[j - 1].style.height) > parseFloat(A[j].style.height)) {
+            A[j].style.backgroundColor = "var(--selected-color)";
+            A[j - 1].style.backgroundColor = "var(--selected-color)";
+            await delay(speed);
+            if (stop) {
+                stop = false;
+                return;
+            }
+            swap(A, j, j - 1);
+            await delay(speed);
+            if (stop) {
+                stop = false;
+                return;
+            }
+            j = j - 1;
+            A[j].style.backgroundColor = "var(--bar-color)";
+            A[j + 1].style.backgroundColor = "var(--bar-color)";
+        }
+        i = i + 1;
+    }
+    done(graph);
+}
+
+async function mergeSort(graph) {
+    stop = false;
+    let g = graph.children;
+    await mergeSortHelper(g, 0, g.length);
+    await done(graph);
+}
+
+async function mergeSortHelper(g, start, end) {
+    if (end - start <= 1) return;
+
+    let mid = Math.floor((start + end) / 2);
+
+    await mergeSortHelper(g, start, mid);
+    await mergeSortHelper(g, mid, end);
+
+    await merge(g, start, mid, end);
+}
+
+async function merge(g, start, mid, end) {
+    let leftHeights = [];
+    for (let i = start; i < mid; i++) leftHeights.push(parseFloat(g[i].style.height));
+    let rightHeights = [];
+    for (let i = mid; i < end; i++) rightHeights.push(parseFloat(g[i].style.height));
+
+    let i = 0, j = 0, k = start;
+    let speed = 4000 / g.length;
+
+    while (i < leftHeights.length && j < rightHeights.length) {
+        g[k].style.backgroundColor = "var(--selected-color)";
+        await delay(speed);
+        if (stop) { stop = false; return; }
+
+        if (leftHeights[i] <= rightHeights[j]) {
+            g[k].style.height = leftHeights[i] + "%";
+            i++;
+        } else {
+            g[k].style.height = rightHeights[j] + "%";
+            j++;
+        }
+
+        g[k].style.backgroundColor = "var(--bar-color)";
+        k++;
+    }
+
+    while (i < leftHeights.length) {
+        g[k].style.backgroundColor = "var(--selected-color)";
+        await delay(speed);
+        if (stop) { stop = false; return; }
+        g[k].style.height = leftHeights[i] + "%";
+        g[k].style.backgroundColor = "var(--bar-color)";
+        i++;
+        k++;
+    }
+
+    while (j < rightHeights.length) {
+        g[k].style.backgroundColor = "var(--selected-color)";
+        await delay(speed);
+        if (stop) { stop = false; return; }
+        g[k].style.height = rightHeights[j] + "%";
+        g[k].style.backgroundColor = "var(--bar-color)";
+        j++;
+        k++;
+    }
+}
+
+function arrayToString(arr) {
+    str = "[";
+    for (bar of arr) {
+        str += parseFloat(bar.style.height) + ", ";
+    }
+    return str.slice(0, -2) + "]";
 }
 
 function main() {
