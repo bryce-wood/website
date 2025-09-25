@@ -8,12 +8,13 @@ const GRAPH_TYPES = [
 ]
 
 var stop = false;
+var randomGraphs = true;
 
 function initArray(length=16) {
     let arr = [];
     for (let i = 0; i < length; i++) {
-        //arr.push(Math.floor(Math.random() * length) + 1);
-        arr.push(i + 1);
+        if (randomGraphs) arr.push(Math.floor(Math.random() * length) + 1);
+        else arr.push(i + 1);
     }
     // shuffle the array
     for (let i = arr.length - 1; i > 0; i--) {
@@ -64,7 +65,7 @@ function generatGraphsHTML() {
 
         elementSlider.type = "range";
         elementSlider.min = 5;
-        elementSlider.max = 100;
+        elementSlider.max = 1000;
         elementSlider.step = 1;
         elementSlider.value = 16;
         elementSlider.oninput = (e) => {
@@ -281,6 +282,109 @@ async function merge(g, start, mid, end) {
         g[k].style.backgroundColor = "var(--bar-color)";
         j++;
         k++;
+    }
+}
+
+async function quickSort(graph) {
+    stop = false;
+    let g = graph.children;
+    quickSortHelper(g, 0, g.length - 1).then(() => {
+        done(graph);
+    });
+}
+
+async function quickSortHelper(g, low, high) {
+    if (low < high) {
+        let pi = await partition(g, low, high);
+        await quickSortHelper(g, low, pi - 1);
+        await quickSortHelper(g, pi + 1, high);
+    }
+}
+
+async function partition(g, low, high) {
+    let pivot = parseFloat(g[high].style.height);
+    g[high].style.backgroundColor = "var(--pivot-color)";
+    let i = low - 1;
+    let speed = 4000 / g.length;
+
+    for (let j = low; j < high; j++) {
+        g[j].style.backgroundColor = "var(--selected-color)";
+        await delay(speed);
+        if (stop) { stop = false; return; }
+
+        if (parseFloat(g[j].style.height) < pivot) {
+            i++;
+            swap(g, i, j);
+            g[i].style.backgroundColor = "var(--bar-color)";
+        }
+        g[j].style.backgroundColor = "var(--bar-color)";
+    }
+    swap(g, i + 1, high);
+    g[high].style.backgroundColor = "var(--bar-color)";
+    g[i + 1].style.backgroundColor = "var(--bar-color)";
+    return i + 1;
+}
+
+async function heapSort(graph) {
+    stop = false;
+    let g = graph.children;
+    let n = g.length;
+    let speed = 4000 / n;
+
+    // Build heap (rearrange array)
+    for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+        await heapify(g, n, i, speed);
+    }
+
+    // One by one extract an element from heap
+    for (let i = n - 1; i > 0; i--) {
+        swap(g, 0, i);
+        g[i].style.backgroundColor = "var(--sorted-color)";
+        await delay(speed);
+        if (stop) { stop = false; return; }
+        await heapify(g, i, 0, speed);
+    }
+    g[0].style.backgroundColor = "var(--sorted-color)";
+    await done(graph);
+}
+
+async function heapify(g, n, i, speed) {
+    let largest = i; // Initialize largest as root
+    let l = 2 * i + 1; // left = 2*i + 1
+    let r = 2 * i + 2; // right = 2*i + 2
+
+    // If left child is larger than root
+    if (l < n) {
+        g[l].style.backgroundColor = "var(--selected-color)";
+        g[largest].style.backgroundColor = "var(--selected-color)";
+        await delay(speed);
+        if (stop) { stop = false; return; }
+        if (parseFloat(g[l].style.height) > parseFloat(g[largest].style.height)) {
+            largest = l;
+        }
+        g[l].style.backgroundColor = "var(--bar-color)";
+        g[i].style.backgroundColor = "var(--bar-color)";
+    }
+
+    // If right child is larger than largest so far
+    if (r < n) {
+        g[r].style.backgroundColor = "var(--selected-color)";
+        g[largest].style.backgroundColor = "var(--selected-color)";
+        await delay(speed);
+        if (stop) { stop = false; return; }
+        if (parseFloat(g[r].style.height) > parseFloat(g[largest].style.height)) {
+            largest = r;
+        }
+        g[r].style.backgroundColor = "var(--bar-color)";
+        g[i].style.backgroundColor = "var(--bar-color)";
+    }
+
+    // If largest is not root
+    if (largest != i) {
+        swap(g, i, largest);
+        await delay(speed);
+        if (stop) { stop = false; return; }
+        await heapify(g, n, largest, speed);
     }
 }
 
